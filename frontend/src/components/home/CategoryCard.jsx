@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom'
 import { MdArrowForward } from 'react-icons/md'
+import { collectionsPath } from '../../config/categories.js'
 
-// A photo tile for one category. It goes to Collections until category pages exist.
+// A photo tile for one category. It opens Collections filtered to that category.
 function CategoryCard({ category }) {
-  const { label, image, alt } = category
+  const { id, label, image, alt } = category
 
   return (
     <Link
-      to='/collections'
+      to={collectionsPath(id)}
       aria-label={`Shop ${label}`}
-      className='group relative block w-full aspect-[4/3] 2xl:aspect-[16/10] rounded-lg overflow-hidden bg-surface-mid shadow-lg hover:shadow-2xl transition-shadow duration-300'
+      className='group relative block w-full aspect-[4/3] 2xl:aspect-[16/10] rounded-lg overflow-hidden bg-surface-mid shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 ease-out'
     >
       <img
         src={image}

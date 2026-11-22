@@ -1,7 +1,14 @@
 import { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
-import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
-import AuthLayout from '../components/AuthLayout.jsx'
+import { Navigate } from 'react-router-dom'
+import {
+  MdLockOutline,
+  MdOutlineAlternateEmail,
+  MdPersonOutline,
+  MdVisibility,
+  MdVisibilityOff,
+} from 'react-icons/md'
+import AuthDivider from '../components/AuthDivider.jsx'
+import AuthHeading from '../components/AuthHeading.jsx'
 import GoogleButton from '../components/GoogleButton.jsx'
 import PageLoader from '../components/PageLoader.jsx'
 import PrimaryButton from '../components/PrimaryButton.jsx'
@@ -11,7 +18,6 @@ import { useAuth } from '../hooks/useAuth.js'
 const MIN_PASSWORD_LENGTH = 8
 
 function Registration() {
-  const navigate = useNavigate()
   const { register, isAuthenticated, isLoading } = useAuth()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -40,50 +46,53 @@ function Registration() {
   }
 
   return (
-    <AuthLayout title='Create your account' subtitle='Join OneCart and place your first order'>
-      <form onSubmit={handleSubmit} className='w-full flex flex-col gap-[20px]'>
+    <div className='flex flex-col gap-8'>
+      <AuthHeading title='Create your account' subtitle='Join OneCart and place your first order' />
+      <form onSubmit={handleSubmit} className='w-full flex flex-col gap-5'>
         <TextInput
+          label='Full name'
+          icon={MdPersonOutline}
           type='text'
           name='name'
           autoComplete='name'
-          aria-label='Full name'
-          placeholder='Full name'
+          placeholder='Your name'
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <TextInput
+          label='Email address'
+          icon={MdOutlineAlternateEmail}
           type='email'
           name='email'
           autoComplete='email'
-          aria-label='Email'
-          placeholder='Email'
+          placeholder='name@example.com'
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <div className='relative'>
-          <TextInput
-            type={showPassword ? 'text' : 'password'}
-            name='password'
-            autoComplete='new-password'
-            aria-label='Password'
-            placeholder={`Password (min ${MIN_PASSWORD_LENGTH} characters)`}
-            required
-            minLength={MIN_PASSWORD_LENGTH}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className='pr-[52px]'
-          />
-          <button
-            type='button'
-            onClick={() => setShowPassword((s) => !s)}
-            aria-label={showPassword ? 'Hide password' : 'Show password'}
-            className='absolute right-[16px] top-[50%] -translate-y-[50%] text-[20px] text-muted hover:text-ink cursor-pointer'
-          >
-            {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
-          </button>
-        </div>
+        <TextInput
+          label='Password'
+          icon={MdLockOutline}
+          type={showPassword ? 'text' : 'password'}
+          name='password'
+          autoComplete='new-password'
+          placeholder={`At least ${MIN_PASSWORD_LENGTH} characters`}
+          required
+          minLength={MIN_PASSWORD_LENGTH}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          trailing={
+            <button
+              type='button'
+              onClick={() => setShowPassword((s) => !s)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              className='text-[20px] text-outline hover:text-ink cursor-pointer'
+            >
+              {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
+            </button>
+          }
+        />
 
         {error && (
           <p className='text-danger text-body-sm' role='alert'>
@@ -93,26 +102,11 @@ function Registration() {
 
         <PrimaryButton disabled={submitting}>{submitting ? 'Creating account...' : 'Create Account'}</PrimaryButton>
 
-        <div className='flex items-center gap-[10px] text-[14px] text-muted' aria-hidden='true'>
-          <span className='flex-1 h-[1px] bg-line' />
-          or
-          <span className='flex-1 h-[1px] bg-line' />
-        </div>
+        <AuthDivider />
 
         <GoogleButton label='Sign up with Google' disabled={submitting} onError={setError} />
-
-        <p className='text-[15px] text-center text-muted'>
-          Already have an account?{' '}
-          <button
-            type='button'
-            className='text-ink font-semibold underline underline-offset-4 cursor-pointer'
-            onClick={() => navigate('/login')}
-          >
-            Login
-          </button>
-        </p>
       </form>
-    </AuthLayout>
+    </div>
   )
 }
 

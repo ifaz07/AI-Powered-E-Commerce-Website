@@ -1,5 +1,6 @@
 import { MdArrowForward } from 'react-icons/md'
 import { SPOTLIGHT } from '../../config/homeContent.js'
+import { collectionsPath } from '../../config/categories.js'
 import ButtonLink from '../ButtonLink.jsx'
 import Container from '../Container.jsx'
 
@@ -32,7 +33,7 @@ function SpotlightSection() {
             <h2 className='font-display text-headline-lg text-ink'>{SPOTLIGHT.title}</h2>
             <p className='text-body-lg text-muted'>{SPOTLIGHT.text}</p>
             <div className='pt-2'>
-              <ButtonLink to='/collections' icon={MdArrowForward}>
+              <ButtonLink to={collectionsPath('women')} icon={MdArrowForward}>
                 {SPOTLIGHT.cta}
               </ButtonLink>
             </div>

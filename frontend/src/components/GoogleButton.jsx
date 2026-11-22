@@ -32,7 +32,7 @@ function GoogleButton({ label = 'Continue with Google', disabled = false, onErro
       type='button'
       onClick={handleClick}
       disabled={disabled || loading}
-      className='w-[100%] h-14 bg-surface border border-line rounded text-ink font-semibold text-body-md flex items-center justify-center gap-[10px] hover:bg-surface-low transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed'
+      className='w-[100%] h-14 bg-surface border border-line rounded text-ink font-semibold text-body-md flex items-center justify-center gap-[10px] hover:bg-surface-low hover:border-accent enabled:hover:-translate-y-0.5 enabled:active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent transition-all duration-300 ease-out cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed'
     >
       <FcGoogle className='text-[22px]' />
       {loading ? 'Connecting to Google...' : label}
