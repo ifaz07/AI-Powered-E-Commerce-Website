@@ -5,13 +5,6 @@ const DEFAULT_TIMEOUT_MS = 10000
 const rawBase = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? 'http://localhost:8000' : '')
 export const API_URL = rawBase.replace(/\/+$/, '')
 
-/**
- * The single place that talks to the backend.
- * Never throws: always resolves to { ok, status, data, aborted? }.
- * - Sends the login cookie (credentials: 'include').
- * - Gives up after `timeout` ms so the UI never hangs forever.
- * - Can be cancelled with an AbortSignal (aborted: true in the result).
- */
 export async function request(path, { method = 'GET', body, signal, timeout = DEFAULT_TIMEOUT_MS } = {}) {
   const controller = new AbortController()
   let timedOut = false

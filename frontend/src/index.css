@@ -1,1 +1,70 @@
 @import "tailwindcss";
+
+/* Design tokens ("Editorial Noir"). Colors, fonts and text styles live here so every page matches.
+   Change a value here and the whole site follows. */
+@theme {
+  --color-page: #fcf8fc;
+  --color-surface: #ffffff;
+  --color-surface-low: #f6f2f7;
+  --color-surface-mid: #f0edf1;
+  --color-surface-high: #eae7eb;
+  --color-ink: #1b1b1e;
+  --color-muted: #50453b;
+  --color-outline: #82756a;
+  --color-line: #e7ddd4;
+  --color-accent: #7d562d;
+  --color-accent-strong: #623f18;
+  --color-accent-soft: #f3e6d8;
+  --color-terracotta: #9a442d;
+  --color-danger: #ba1a1a;
+
+  --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'EB Garamond', Georgia, 'Times New Roman', serif;
+
+  --text-display-xl: 56px;
+  --text-display-xl--line-height: 64px;
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-display-xl--font-weight: 400;
+  --text-display-2xl: 72px;
+  --text-display-2xl--line-height: 80px;
+  --text-display-2xl--letter-spacing: -0.02em;
+  --text-display-2xl--font-weight: 400;
+  --text-display-xl-mobile: 36px;
+  --text-display-xl-mobile--line-height: 44px;
+  --text-display-xl-mobile--letter-spacing: -0.01em;
+  --text-display-xl-mobile--font-weight: 400;
+  --text-headline-lg: 40px;
+  --text-headline-lg--line-height: 48px;
+  --text-headline-lg--letter-spacing: -0.015em;
+  --text-headline-lg--font-weight: 400;
+  --text-headline-md: 28px;
+  --text-headline-md--line-height: 36px;
+  --text-headline-md--font-weight: 400;
+  --text-headline-sm: 22px;
+  --text-headline-sm--line-height: 30px;
+  --text-headline-sm--font-weight: 500;
+  --text-body-lg: 17px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 300;
+  --text-body-md: 15px;
+  --text-body-md--line-height: 24px;
+  --text-body-sm: 13px;
+  --text-body-sm--line-height: 20px;
+  --text-label-lg: 13px;
+  --text-label-lg--line-height: 18px;
+  --text-label-lg--letter-spacing: 0.08em;
+  --text-label-lg--font-weight: 500;
+  --text-label-md: 11px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--letter-spacing: 0.12em;
+  --text-label-md--font-weight: 500;
+  --text-caption: 10px;
+  --text-caption--line-height: 14px;
+  --text-caption--letter-spacing: 0.05em;
+}
+
+body {
+  background-color: var(--color-page);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}

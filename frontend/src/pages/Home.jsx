@@ -1,10 +1,17 @@
+import PageLayout from '../components/PageLayout.jsx'
+import CategorySection from '../components/home/CategorySection.jsx'
+import HeroSection from '../components/home/HeroSection.jsx'
+import NewsletterSection from '../components/home/NewsletterSection.jsx'
+import SpotlightSection from '../components/home/SpotlightSection.jsx'
 
 function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-gray-800">Welcome to Our Store</h1>
-      <p className="text-gray-600 mt-4">Discover amazing products at great prices!</p>
-    </div>
+    <PageLayout>
+      <HeroSection />
+      <SpotlightSection />
+      <CategorySection />
+      <NewsletterSection />
+    </PageLayout>
   )
 }
 

@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { IoEye, IoEyeOff } from 'react-icons/io5'
-import Logo from '../assets/Logo.png'
+import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
+import AuthLayout from '../components/AuthLayout.jsx'
 import GoogleButton from '../components/GoogleButton.jsx'
 import PageLoader from '../components/PageLoader.jsx'
+import PrimaryButton from '../components/PrimaryButton.jsx'
+import TextInput from '../components/TextInput.jsx'
 import { useAuth } from '../hooks/useAuth.js'
 
 const MIN_PASSWORD_LENGTH = 8
@@ -38,103 +40,79 @@ function Registration() {
   }
 
   return (
-    <div className='w-[100%] min-h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] text-[white] flex flex-col items-center justify-start'>
-      <button
-        type='button'
-        className='w-[100%] h-[80px] flex items-center justify-start px-[30px] gap-[10px] cursor-pointer'
-        onClick={() => navigate('/')}
-      >
-        <img className='w-[40px]' src={Logo} alt='' />
-        <span className='text-[22px] font-sans'>OneCart</span>
-      </button>
-
-      <div className='w-[100%] h-[100px] flex items-center justify-center flex-col gap-[10px] px-[20px] text-center'>
-        <h1 className='text-[25px] font-semibold'>Registration Page</h1>
-        <p className='text-[16px]'>Welcome to OneCart, Place your order</p>
-      </div>
-
-      <div className='max-w-[600px] w-[90%] bg-[#00000025] border-[1px] border-[#96969635] backdrop-blur-2xl rounded-lg shadow-lg flex items-center justify-center py-[30px]'>
-        <form onSubmit={handleSubmit} className='w-[90%] flex flex-col items-center justify-start gap-[20px]'>
-          <input
-            type='text'
-            name='name'
-            autoComplete='name'
-            aria-label='Full name'
-            placeholder='Full name'
+    <AuthLayout title='Create your account' subtitle='Join OneCart and place your first order'>
+      <form onSubmit={handleSubmit} className='w-full flex flex-col gap-[20px]'>
+        <TextInput
+          type='text'
+          name='name'
+          autoComplete='name'
+          aria-label='Full name'
+          placeholder='Full name'
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <TextInput
+          type='email'
+          name='email'
+          autoComplete='email'
+          aria-label='Email'
+          placeholder='Email'
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <div className='relative'>
+          <TextInput
+            type={showPassword ? 'text' : 'password'}
+            name='password'
+            autoComplete='new-password'
+            aria-label='Password'
+            placeholder={`Password (min ${MIN_PASSWORD_LENGTH} characters)`}
             required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className='w-[100%] h-[50px] border-[2px] border-[#96969635] backdrop-blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold focus:outline-none focus:border-[#6060f5]'
+            minLength={MIN_PASSWORD_LENGTH}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className='pr-[52px]'
           />
-          <input
-            type='email'
-            name='email'
-            autoComplete='email'
-            aria-label='Email'
-            placeholder='Email'
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className='w-[100%] h-[50px] border-[2px] border-[#96969635] backdrop-blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold focus:outline-none focus:border-[#6060f5]'
-          />
-          <div className='w-[100%] relative'>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name='password'
-              autoComplete='new-password'
-              aria-label='Password'
-              placeholder={`Password (min ${MIN_PASSWORD_LENGTH} characters)`}
-              required
-              minLength={MIN_PASSWORD_LENGTH}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className='w-[100%] h-[50px] border-[2px] border-[#96969635] backdrop-blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] pr-[50px] font-semibold focus:outline-none focus:border-[#6060f5]'
-            />
-            <button
-              type='button'
-              onClick={() => setShowPassword((s) => !s)}
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
-              className='absolute right-[15px] top-[50%] -translate-y-[50%] text-[20px] cursor-pointer'
-            >
-              {showPassword ? <IoEyeOff /> : <IoEye />}
-            </button>
-          </div>
-
-          {error && (
-            <p className='w-[100%] text-[#ff7b7b] text-[14px]' role='alert'>
-              {error}
-            </p>
-          )}
-
           <button
-            type='submit'
-            disabled={submitting}
-            className='w-[100%] h-[50px] bg-[#6060f5] rounded-lg font-semibold text-[17px] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed'
+            type='button'
+            onClick={() => setShowPassword((s) => !s)}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            className='absolute right-[16px] top-[50%] -translate-y-[50%] text-[20px] text-muted hover:text-ink cursor-pointer'
           >
-            {submitting ? 'Creating account...' : 'Create Account'}
+            {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
           </button>
+        </div>
 
-          <div className='w-[100%] flex items-center gap-[10px] text-[14px] text-[#ffffffa0]' aria-hidden='true'>
-            <span className='flex-1 h-[1px] bg-[#96969635]' />
-            or
-            <span className='flex-1 h-[1px] bg-[#96969635]' />
-          </div>
-
-          <GoogleButton label='Sign up with Google' disabled={submitting} onError={setError} />
-
-          <p className='text-[15px]'>
-            Already have an account?{' '}
-            <button
-              type='button'
-              className='text-[#5555f6cf] font-semibold cursor-pointer'
-              onClick={() => navigate('/login')}
-            >
-              Login
-            </button>
+        {error && (
+          <p className='text-danger text-body-sm' role='alert'>
+            {error}
           </p>
-        </form>
-      </div>
-    </div>
+        )}
+
+        <PrimaryButton disabled={submitting}>{submitting ? 'Creating account...' : 'Create Account'}</PrimaryButton>
+
+        <div className='flex items-center gap-[10px] text-[14px] text-muted' aria-hidden='true'>
+          <span className='flex-1 h-[1px] bg-line' />
+          or
+          <span className='flex-1 h-[1px] bg-line' />
+        </div>
+
+        <GoogleButton label='Sign up with Google' disabled={submitting} onError={setError} />
+
+        <p className='text-[15px] text-center text-muted'>
+          Already have an account?{' '}
+          <button
+            type='button'
+            className='text-ink font-semibold underline underline-offset-4 cursor-pointer'
+            onClick={() => navigate('/login')}
+          >
+            Login
+          </button>
+        </p>
+      </form>
+    </AuthLayout>
   )
 }
 
