@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { MdOutlineLogout, MdOutlinePerson } from 'react-icons/md'
 import { useAuth } from '../hooks/useAuth.js'
+import { useLogout } from '../hooks/useLogout.js'
 
 // Right side of the Nav: Login for visitors, a round avatar with a small menu (name + Logout) once logged in.
 function UserMenu() {
   const navigate = useNavigate()
-  const { user, isAuthenticated, isLoading, logout } = useAuth()
+  const { user, isAuthenticated, isLoading } = useAuth()
+  const { loggingOut, handleLogout } = useLogout()
   const [open, setOpen] = useState(false)
-  const [loggingOut, setLoggingOut] = useState(false)
   const containerRef = useRef(null)
 
   // Close the menu when clicking outside it or pressing Escape.
@@ -28,11 +29,8 @@ function UserMenu() {
     }
   }, [open])
 
-  const handleLogout = async () => {
-    if (loggingOut) return
-    setLoggingOut(true)
-    await logout()
-    setLoggingOut(false)
+  const logoutAndClose = async () => {
+    await handleLogout()
     setOpen(false)
   }
 
@@ -74,10 +72,19 @@ function UserMenu() {
           <p className='px-3 py-2 text-body-sm text-muted truncate' title={user?.name}>
             {user?.name}
           </p>
+          <Link
+            to='/profile'
+            role='menuitem'
+            onClick={() => setOpen(false)}
+            className='w-full px-3 py-2.5 rounded text-left text-body-md text-ink flex items-center gap-[10px] hover:bg-surface-low'
+          >
+            <MdOutlinePerson className='text-[20px]' />
+            My profile
+          </Link>
           <button
             type='button'
             role='menuitem'
-            onClick={handleLogout}
+            onClick={logoutAndClose}
             disabled={loggingOut}
             className='w-full px-3 py-2.5 rounded text-left text-body-md text-ink flex items-center gap-[10px] hover:bg-surface-low disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer'
           >

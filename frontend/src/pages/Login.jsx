@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { MdLockOutline, MdOutlineAlternateEmail, MdVisibility, MdVisibilityOff } from 'react-icons/md'
+import { MdOutlineAlternateEmail } from 'react-icons/md'
 import AuthDivider from '../components/AuthDivider.jsx'
 import AuthHeading from '../components/AuthHeading.jsx'
 import GoogleButton from '../components/GoogleButton.jsx'
 import PageLoader from '../components/PageLoader.jsx'
+import PasswordInput from '../components/PasswordInput.jsx'
 import PrimaryButton from '../components/PrimaryButton.jsx'
 import TextInput from '../components/TextInput.jsx'
 import { useAuth } from '../hooks/useAuth.js'
@@ -13,7 +14,6 @@ function Login() {
   const { login, isAuthenticated, isLoading } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -46,26 +46,14 @@ function Login() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <TextInput
+        <PasswordInput
           label='Password'
-          icon={MdLockOutline}
-          type={showPassword ? 'text' : 'password'}
           name='password'
           autoComplete='current-password'
           placeholder='Your password'
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          trailing={
-            <button
-              type='button'
-              onClick={() => setShowPassword((s) => !s)}
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
-              className='text-[20px] text-outline hover:text-ink cursor-pointer'
-            >
-              {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
-            </button>
-          }
         />
 
         {error && (
