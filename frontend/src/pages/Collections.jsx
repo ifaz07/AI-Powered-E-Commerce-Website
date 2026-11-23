@@ -1,69 +1,47 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import { MdClose } from 'react-icons/md'
 import Container from '../components/Container.jsx'
-import ButtonLink from '../components/ButtonLink.jsx'
+import CtaCard from '../components/CtaCard.jsx'
+import EmptyState from '../components/EmptyState.jsx'
+import FilterChip from '../components/FilterChip.jsx'
+import PageHeader from '../components/PageHeader.jsx'
 import { COLLECTION_CATEGORIES, collectionsPath } from '../config/categories.js'
+import { COLLECTIONS_CTAS, COLLECTIONS_SUBTITLE } from '../config/collectionsContent.js'
 
-const chipBase = 'px-4 py-2 rounded-full text-label-lg uppercase whitespace-nowrap border transition-all duration-300 ease-out'
-const chipIdle = 'bg-surface/80 border-line text-muted hover:border-accent hover:text-accent'
-const chipActive = 'bg-ink border-ink text-white'
-
-// The Collections page: heading, category chips and the product area.
-// There is no product API yet, so the product area shows an honest empty state instead of sample items.
+// There is no product API yet, so the product area shows an empty state instead of sample items.
 function Collections() {
   const [params] = useSearchParams()
-  const categoryId = params.get('category')
+  const category = COLLECTION_CATEGORIES.find(({ id }) => id === params.get('category'))
   const search = params.get('search')?.trim() ?? ''
-  const category = COLLECTION_CATEGORIES.find(({ id }) => id === categoryId)
 
-  const title = category ? category.label : 'All Collections'
+  const breadcrumb = [
+    { label: 'Home', to: '/' },
+    category ? { label: 'Collections', to: collectionsPath() } : { label: 'Collections' },
+    ...(category ? [{ label: category.label }] : []),
+  ]
 
   return (
     <>
-      <section className='w-full bg-surface-low border-b border-line py-8 lg:py-10'>
-        <Container className='flex flex-col gap-3'>
-          <nav aria-label='Breadcrumb' className='flex items-center gap-2 text-label-md uppercase text-outline'>
-            <Link to='/' className='hover:text-accent transition-colors'>Home</Link>
-            <span aria-hidden='true'>/</span>
-            {category ? (
-              <>
-                <Link to={collectionsPath()} className='hover:text-accent transition-colors'>Collections</Link>
-                <span aria-hidden='true'>/</span>
-                <span className='text-ink'>{category.label}</span>
-              </>
-            ) : (
-              <span className='text-ink'>Collections</span>
-            )}
-          </nav>
-          <h1 className='font-display text-display-xl-mobile md:text-display-xl text-ink'>{title}</h1>
-          <p className='font-display italic text-headline-sm text-muted'>
-            Clothing and accessories for men, women and kids.
-          </p>
-        </Container>
-      </section>
+      <PageHeader
+        breadcrumb={breadcrumb}
+        title={category ? category.label : 'All Collections'}
+        subtitle={COLLECTIONS_SUBTITLE}
+      />
 
-      <section className='w-full border-b border-line bg-page'>
+      <section className='w-full border-b border-line'>
         <Container className='py-5 flex flex-col gap-4'>
-          <div className='flex gap-3 overflow-x-auto pb-1' role='list' aria-label='Categories'>
-            <Link
-              role='listitem'
-              to={collectionsPath()}
-              aria-current={!category ? 'page' : undefined}
-              className={`${chipBase} ${!category ? chipActive : chipIdle}`}
-            >
-              All pieces
-            </Link>
-            {COLLECTION_CATEGORIES.map(({ id, label }) => (
-              <Link
-                key={id}
-                role='listitem'
-                to={collectionsPath(id)}
-                aria-current={category?.id === id ? 'page' : undefined}
-                className={`${chipBase} ${category?.id === id ? chipActive : chipIdle}`}
-              >
-                {label}
-              </Link>
-            ))}
+          <div className='flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-6'>
+            <span className='text-label-md uppercase text-outline shrink-0'>Browse by category</span>
+            <div className='flex gap-3 overflow-x-auto pb-1'>
+              <FilterChip to={collectionsPath()} active={!category}>
+                All pieces
+              </FilterChip>
+              {COLLECTION_CATEGORIES.map(({ id, label }) => (
+                <FilterChip key={id} to={collectionsPath(id)} active={category?.id === id}>
+                  {label}
+                </FilterChip>
+              ))}
+            </div>
           </div>
 
           {search && (
@@ -82,17 +60,21 @@ function Collections() {
         </Container>
       </section>
 
-      <Container className='py-16 lg:py-24'>
-        <div className='mx-auto max-w-xl flex flex-col items-center gap-4 text-center p-10 rounded-lg bg-surface border border-line'>
-          <h2 className='font-display text-headline-md text-ink'>No pieces here yet</h2>
-          <p className='text-body-lg text-muted font-normal'>
-            New pieces will appear on this page as soon as they are added to the shop.
-          </p>
-          <ButtonLink to='/' variant='secondary' size='sm'>
-            Back to home
-          </ButtonLink>
-        </div>
+      <Container className='py-14 lg:py-20'>
+        <EmptyState
+          title='No pieces here yet'
+          text='New pieces will appear on this page as soon as they are added to the shop.'
+          action={{ label: 'Back to home', to: '/' }}
+        />
       </Container>
+
+      <section className='bg-surface-low border-t border-line py-14 lg:py-20'>
+        <Container className='grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10'>
+          {COLLECTIONS_CTAS.map((card) => (
+            <CtaCard key={card.title} {...card} />
+          ))}
+        </Container>
+      </section>
     </>
   )
 }

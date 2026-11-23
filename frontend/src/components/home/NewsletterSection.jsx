@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { MdArrowForward, MdOutlineMarkEmailRead } from 'react-icons/md'
+import { buttonMotion } from '../../config/ui.js'
 import Container from '../Container.jsx'
 
 // The backend has no newsletter endpoint yet, so this only validates the email and says so honestly.
@@ -45,7 +46,7 @@ function NewsletterSection() {
             />
             <button
               type='submit'
-              className='w-full sm:w-auto h-14 px-8 rounded bg-accent text-white text-label-lg uppercase font-semibold whitespace-nowrap hover:bg-accent-strong transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer'
+              className={`w-full sm:w-auto h-14 px-8 rounded bg-accent text-white text-label-lg uppercase font-semibold whitespace-nowrap hover:bg-accent-strong hover:-translate-y-0.5 active:translate-y-0 shadow-md flex items-center justify-center gap-2 cursor-pointer ${buttonMotion}`}
             >
               Join OneCart
               <MdArrowForward className='text-[18px]' aria-hidden='true' />

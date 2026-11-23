@@ -6,11 +6,13 @@ import PageLoader from './PageLoader.jsx'
 // on screen; only this part fades in ("page-enter" in index.css). The key restarts the fade on each route change.
 // Suspense sits here, inside the layout, so a page that is still downloading never blanks the whole screen.
 function PageTransition() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
+    const target = hash ? document.getElementById(hash.slice(1)) : null
+    if (target) target.scrollIntoView()
+    else window.scrollTo(0, 0)
+  }, [pathname, hash])
 
   return (
     <Suspense fallback={<PageLoader />}>

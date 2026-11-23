@@ -44,9 +44,9 @@ function Nav({ cartCount = 0 }) {
   return (
     <header className='fixed top-0 left-0 w-full z-50 bg-surface/85 backdrop-blur-2xl shadow-[0_1px_12px_rgba(27,27,30,0.08)]'>
       <Container as='nav' aria-label='Main' className='h-20 flex items-center justify-between gap-6'>
-        <div className='flex items-center gap-12'>
+        <div className='flex items-center gap-12 xl:gap-16'>
           <BrandLogo onClick={closePanels} />
-          <div className='hidden lg:flex items-center gap-8'>{links}</div>
+          <div className='hidden lg:flex items-center gap-8 xl:gap-12'>{links}</div>
         </div>
 
         <div className='flex items-center gap-2 sm:gap-4'>

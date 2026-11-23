@@ -1,10 +1,8 @@
-import { STEPS } from '../../config/aboutContent.js'
-import Container from '../Container.jsx'
-import SectionHeading from '../SectionHeading.jsx'
+import Container from './Container.jsx'
+import SectionHeading from './SectionHeading.jsx'
 
-function StepsSection() {
-  const { eyebrow, title, items } = STEPS
-
+// Dark band with numbered steps. Used by the About and Merchants pages.
+function StepsSection({ eyebrow, title, items }) {
   return (
     <section className='bg-ink py-14 lg:py-20'>
       <Container className='flex flex-col gap-10 lg:gap-14'>

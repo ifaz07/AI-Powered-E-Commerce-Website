@@ -1,17 +1,21 @@
 const baseClass =
-  'w-full h-14 px-5 rounded border border-line bg-surface text-ink text-body-md placeholder:text-outline hover:border-outline focus:outline-none focus:border-accent transition-colors'
+  'w-full px-5 rounded border bg-surface text-ink text-body-md placeholder:text-outline focus:outline-none focus:border-accent transition-colors'
 
-// The one text box style used by every form. Optional: a label above it, an icon inside on the left,
-// and a "trailing" element inside on the right (for example the show/hide password button).
-function TextInput({ label, icon: Icon, trailing, className = '', ...props }) {
+// The one text box style used by every form. Pass as='select' or as='textarea' for those fields. Optional: a label above it,
+// an icon inside on the left, a "trailing" element inside on the right (for example the show/hide password button),
+// and an error message shown below in red.
+function TextInput({ as: Field = 'input', label, icon: Icon, trailing, error, className = '', ...props }) {
   const input = (
-    <input
-      className={`${baseClass} ${Icon ? 'pl-12' : ''} ${trailing ? 'pr-14' : ''} ${className}`}
+    <Field
+      aria-invalid={error ? true : undefined}
+      className={`${baseClass} ${Field === 'textarea' ? 'min-h-32 py-4' : 'h-14'} ${
+        error ? 'border-danger' : 'border-line hover:border-outline'
+      } ${Icon ? 'pl-12' : ''} ${trailing ? 'pr-14' : ''} ${className}`}
       {...props}
     />
   )
 
-  if (!label && !Icon && !trailing) return input
+  if (!label && !Icon && !trailing && !error) return input
 
   return (
     <label className='flex flex-col gap-2'>
@@ -26,6 +30,11 @@ function TextInput({ label, icon: Icon, trailing, className = '', ...props }) {
         {input}
         {trailing && <span className='absolute right-4 top-1/2 -translate-y-1/2 flex'>{trailing}</span>}
       </span>
+      {error && (
+        <span role='alert' className='text-body-sm text-danger'>
+          {error}
+        </span>
+      )}
     </label>
   )
 }

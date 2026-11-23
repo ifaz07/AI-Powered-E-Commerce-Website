@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { MdArrowForward, MdOutlineAutoAwesome } from 'react-icons/md'
 import { HERO } from '../../config/homeContent.js'
 import { collectionsPath } from '../../config/categories.js'
+import { buttonMotion } from '../../config/ui.js'
 import ButtonLink from '../ButtonLink.jsx'
 
 // Full-width split hero: text on the left, a photo that runs to the right edge of the screen.
@@ -63,7 +64,7 @@ function HeroSection() {
           <Link
             to={collectionsPath('men')}
             aria-label={HERO.title}
-            className='shrink-0 w-11 h-11 rounded bg-accent text-white flex items-center justify-center hover:bg-accent-strong hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 transition-all duration-300 ease-out shadow-md'
+            className={`shrink-0 w-11 h-11 rounded bg-accent text-white flex items-center justify-center hover:bg-accent-strong hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 shadow-md ${buttonMotion}`}
           >
             <MdArrowForward className='text-[20px]' aria-hidden='true' />
           </Link>
