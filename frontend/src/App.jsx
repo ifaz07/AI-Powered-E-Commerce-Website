@@ -1,6 +1,7 @@
 import { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
+import About from './pages/About.jsx'
 import Collections from './pages/Collections.jsx'
 import ComingSoon from './pages/ComingSoon.jsx'
 import AuthLayout from './components/AuthLayout.jsx'
@@ -16,7 +17,7 @@ function App() {
       <Route element={<PageLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/collections" element={<Collections />} />
-        <Route path="/about" element={<ComingSoon title="About" />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ComingSoon title="Contact" />} />
         <Route path="/cart" element={<ComingSoon title="Cart" />} />
       </Route>
