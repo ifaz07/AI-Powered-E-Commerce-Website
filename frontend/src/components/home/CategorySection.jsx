@@ -2,19 +2,14 @@ import { Link } from 'react-router-dom'
 import { MdArrowForward } from 'react-icons/md'
 import { CATEGORIES } from '../../config/homeContent.js'
 import Container from '../Container.jsx'
+import SectionHeading from '../SectionHeading.jsx'
 import CategoryCard from './CategoryCard.jsx'
 
 function CategorySection() {
   return (
     <Container as='section' className='py-20'>
       <div className='flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12'>
-        <div className='flex flex-col gap-2'>
-          <div className='flex items-center gap-2'>
-            <span className='w-2.5 h-2.5 rounded-full bg-accent' aria-hidden='true' />
-            <span className='text-label-md uppercase text-outline'>Categories</span>
-          </div>
-          <h2 className='font-display text-headline-lg text-ink'>Shop by category</h2>
-        </div>
+        <SectionHeading eyebrow='Categories' title='Shop by category' />
         <Link
           to='/collections'
           className='group inline-flex items-center gap-2 text-label-lg uppercase text-accent hover:text-accent-strong transition-colors font-medium'

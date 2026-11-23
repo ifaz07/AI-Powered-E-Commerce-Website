@@ -2,6 +2,7 @@
 export const NAV_LINKS = [
   { label: 'Home', to: '/' },
   { label: 'Collections', to: '/collections' },
+  { label: 'Merchants', to: '/merchants' },
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
 ]
