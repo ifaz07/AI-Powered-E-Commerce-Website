@@ -1,8 +1,9 @@
-import { MdArrowForward, MdOutlineInfo } from 'react-icons/md'
+import { MdArrowForward } from 'react-icons/md'
 import { MERCHANT_APPLICATION, MERCHANT_CATEGORIES, MERCHANT_TYPES } from '../../config/merchantsContent.js'
 import { useMerchantApplication } from '../../hooks/useMerchantApplication.js'
 import CheckboxChips from '../CheckboxChips.jsx'
 import Container from '../Container.jsx'
+import FormStatus from '../FormStatus.jsx'
 import PrimaryButton from '../PrimaryButton.jsx'
 import SectionHeading from '../SectionHeading.jsx'
 import TextInput from '../TextInput.jsx'
@@ -82,12 +83,7 @@ function MerchantApplication() {
                   </span>
                 </PrimaryButton>
               </div>
-              {message && (
-                <p className='flex items-start gap-2 text-body-sm text-muted max-w-xl' role='status'>
-                  <MdOutlineInfo className='text-[18px] shrink-0 mt-0.5 text-accent' aria-hidden='true' />
-                  {message}
-                </p>
-              )}
+              <FormStatus message={message} />
             </div>
           </form>
         </div>

@@ -7,6 +7,7 @@ OneCart is a MERN e-commerce app (MongoDB, Express, React, Node) for clothing an
 Working now:
 - Home page with a full-width hero, a spotlight section, category tiles and a newsletter form.
 - Collections page with category chips and a search chip. It shows an empty state, because there is no product API yet.
+- My account page (`/profile`, logged-in only) with personal details and change-password forms (checked in the browser, not saved yet), logout, and empty Orders and Saved items tabs.
 - Merchants page with an application form (not connected to the backend yet) and an empty merchant directory.
 - About page with an intro, principles, how it works and a short story section.
 - Registration and login with email and password, and Google sign-in.

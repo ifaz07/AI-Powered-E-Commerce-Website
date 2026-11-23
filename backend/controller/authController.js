@@ -18,6 +18,8 @@ const publicUser = (user) => ({
     _id: user._id,
     name: user.name,
     email: user.email,
+    authProvider: user.authProvider,
+    createdAt: user.createdAt,
 });
 
 // Hide internal error details from users in production.

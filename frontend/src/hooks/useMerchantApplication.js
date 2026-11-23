@@ -1,5 +1,6 @@
-import { useState } from 'react'
 import { MERCHANT_APPLICATION } from '../config/merchantsContent.js'
+import { isEmail, isPhone } from '../config/validation.js'
+import { useFormState } from './useFormState.js'
 
 const EMPTY_FORM = {
   business: '',
@@ -18,8 +19,6 @@ const EMPTY_FORM = {
   about: '',
 }
 
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const PHONE = /^\+?\d{7,15}$/
 const HANDLE = /^@[\w.]{2,30}$/
 const LICENCE = /^[A-Za-z0-9\-/ ]{3,40}$/
 
@@ -41,8 +40,8 @@ function validate(form) {
 
   if (text('business').length < 2) errors.business = 'Enter your business name.'
   if (text('name').length < 2) errors.name = 'Enter your full name.'
-  if (!EMAIL.test(text('email'))) errors.email = 'Enter a valid email address.'
-  if (!PHONE.test(text('phone').replace(/[\s\-()]/g, ''))) errors.phone = 'Enter a valid phone number, 7 to 15 digits.'
+  if (!isEmail(form.email)) errors.email = 'Enter a valid email address.'
+  if (!isPhone(form.phone)) errors.phone = 'Enter a valid phone number, 7 to 15 digits.'
   if (form.categories.length === 0) errors.categories = 'Choose at least one thing you sell.'
   if (form.categories.includes('other') && text('otherItems').length < 2) errors.otherItems = 'Tell us which other items you sell.'
 
@@ -55,36 +54,15 @@ function validate(form) {
 }
 
 export function useMerchantApplication() {
-  const [form, setForm] = useState(EMPTY_FORM)
-  const [errors, setErrors] = useState({})
-  const [message, setMessage] = useState('')
-
-  const setValue = (name, value) => {
-    setForm((current) => ({ ...current, [name]: value }))
-    setErrors((current) => ({ ...current, [name]: undefined }))
-  }
-
-  const field = (name) => ({
-    name,
-    value: form[name],
-    error: errors[name],
-    onChange: (e) => setValue(name, e.target.value),
+  const { form, setValue, ...rest } = useFormState({
+    initial: EMPTY_FORM,
+    validate,
+    doneMessage: MERCHANT_APPLICATION.notOpenMessage,
+    resetOnDone: true,
   })
 
   const toggleCategory = (id) =>
     setValue('categories', form.categories.includes(id) ? form.categories.filter((c) => c !== id) : [...form.categories, id])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const found = validate(form)
-    setErrors(found)
-    if (Object.keys(found).length > 0) {
-      setMessage('')
-      return
-    }
-    setMessage(MERCHANT_APPLICATION.notOpenMessage)
-    setForm(EMPTY_FORM)
-  }
-
-  return { form, errors, message, field, toggleCategory, handleSubmit }
+  return { form, toggleCategory, ...rest }
 }
