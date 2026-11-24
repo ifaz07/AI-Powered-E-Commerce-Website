@@ -1,7 +1,7 @@
 import { MdArrowForward } from 'react-icons/md'
 import { MERCHANT_APPLICATION, MERCHANT_CATEGORIES, MERCHANT_TYPES } from '../../config/merchantsContent.js'
 import { useMerchantApplication } from '../../hooks/useMerchantApplication.js'
-import CheckboxChips from '../CheckboxChips.jsx'
+import ChoiceChips from '../ChoiceChips.jsx'
 import Container from '../Container.jsx'
 import FormStatus from '../FormStatus.jsx'
 import PrimaryButton from '../PrimaryButton.jsx'
@@ -29,7 +29,7 @@ function MerchantApplication() {
             <TextInput label='Phone number' type='tel' placeholder='+880 1X XXXX XXXX' autoComplete='tel' maxLength={30} required {...field('phone')} />
 
             <div className='md:col-span-2'>
-              <CheckboxChips
+              <ChoiceChips
                 legend='What do you sell? Choose all that apply'
                 options={MERCHANT_CATEGORIES}
                 selected={form.categories}

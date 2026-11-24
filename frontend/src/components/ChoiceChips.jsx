@@ -1,5 +1,6 @@
-// A group of rounded choices where several can be picked at once. The picked ones turn dark.
-function CheckboxChips({ legend, options, selected, onToggle, error }) {
+// A group of rounded choices. type="checkbox" lets several be picked at once, type="radio" only one.
+// `selected` is always a list of ids. The picked ones turn dark.
+function ChoiceChips({ legend, name, options, selected, onToggle, error, type = 'checkbox' }) {
   return (
     <fieldset className='flex flex-col gap-3'>
       <legend className='text-label-lg uppercase text-muted mb-3'>{legend}</legend>
@@ -7,7 +8,8 @@ function CheckboxChips({ legend, options, selected, onToggle, error }) {
         {options.map(({ id, label }) => (
           <label key={id} className='cursor-pointer'>
             <input
-              type='checkbox'
+              type={type}
+              name={name}
               className='peer sr-only'
               checked={selected.includes(id)}
               onChange={() => onToggle(id)}
@@ -27,4 +29,4 @@ function CheckboxChips({ legend, options, selected, onToggle, error }) {
   )
 }
 
-export default CheckboxChips
+export default ChoiceChips

@@ -2,15 +2,15 @@ import { MdOutlineBadge } from 'react-icons/md'
 import { useProfileForm } from '../../hooks/useProfileForm.js'
 import FormStatus from '../FormStatus.jsx'
 import PrimaryButton from '../PrimaryButton.jsx'
+import SectionCard from '../SectionCard.jsx'
 import TextInput from '../TextInput.jsx'
-import ProfileCard from './ProfileCard.jsx'
 
 // The backend has no profile-update endpoint yet, so this validates the form and says honestly that nothing is saved.
 function PersonalDetailsCard({ user, className }) {
   const { message, field, handleSubmit } = useProfileForm(user)
 
   return (
-    <ProfileCard eyebrow='Your details' title='Personal details' icon={MdOutlineBadge} className={className}>
+    <SectionCard eyebrow='Your details' title='Personal details' icon={MdOutlineBadge} className={className}>
       <form onSubmit={handleSubmit} noValidate className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
         <TextInput label='Full name' autoComplete='name' maxLength={100} required {...field('name')} />
         <TextInput
@@ -35,7 +35,7 @@ function PersonalDetailsCard({ user, className }) {
           </div>
         </div>
       </form>
-    </ProfileCard>
+    </SectionCard>
   )
 }
 

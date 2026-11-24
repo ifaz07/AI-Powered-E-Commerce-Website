@@ -8,7 +8,7 @@ function TextInput({ as: Field = 'input', label, icon: Icon, trailing, error, cl
   const input = (
     <Field
       aria-invalid={error ? true : undefined}
-      className={`${baseClass} ${Field === 'textarea' ? 'min-h-32 py-4' : 'h-14'} ${
+      className={`${baseClass} ${Field === 'textarea' ? 'min-h-32 py-4 resize-none' : 'h-14'} ${
         error ? 'border-danger' : 'border-line hover:border-outline'
       } ${Icon ? 'pl-12' : ''} ${trailing ? 'pr-14' : ''} ${className}`}
       {...props}

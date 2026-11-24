@@ -2,10 +2,11 @@ import { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
+import Cart from './pages/Cart.jsx'
 import Collections from './pages/Collections.jsx'
+import Contact from './pages/Contact.jsx'
 import Merchants from './pages/Merchants.jsx'
 import Profile from './pages/Profile.jsx'
-import ComingSoon from './pages/ComingSoon.jsx'
 import AuthLayout from './components/AuthLayout.jsx'
 import PageLayout from './components/PageLayout.jsx'
 import RequireAuth from './components/RequireAuth.jsx'
@@ -22,8 +23,8 @@ function App() {
         <Route path="/collections" element={<Collections />} />
         <Route path="/merchants" element={<Merchants />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<ComingSoon title="Contact" />} />
-        <Route path="/cart" element={<ComingSoon title="Cart" />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/cart" element={<Cart />} />
         <Route element={<RequireAuth />}>
           <Route path="/profile" element={<Profile />} />
         </Route>

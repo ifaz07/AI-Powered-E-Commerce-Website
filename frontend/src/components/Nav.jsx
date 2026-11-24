@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { MdClose, MdMenu, MdOutlineSearch, MdOutlineShoppingBag } from 'react-icons/md'
 import { NAV_LINKS } from '../config/navLinks.js'
+import { useCart } from '../hooks/useCart.js'
 import BrandLogo from './BrandLogo.jsx'
 import Container from './Container.jsx'
 import SearchBar from './SearchBar.jsx'
@@ -17,8 +18,8 @@ const linkClass = ({ isActive }) =>
 
 const panelClass = 'absolute top-20 left-0 w-full bg-surface/95 backdrop-blur-xl border-b border-line shadow-lg'
 
-// cartCount comes from the cart once it exists. The badge stays hidden while it is 0.
-function Nav({ cartCount = 0 }) {
+function Nav() {
+  const { itemCount: cartCount } = useCart()
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
 
