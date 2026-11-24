@@ -8,13 +8,15 @@ Working now:
 - Home page with a full-width hero, a spotlight section, category tiles and a newsletter form.
 - Collections page with category chips and a search chip. It shows an empty state, because there is no product API yet.
 - My account page (`/profile`, logged-in only) with personal details and change-password forms (checked in the browser, not saved yet), logout, and empty Orders and Saved items tabs.
+- Contact page with an inquiry form (checked in the browser, not sent yet) and contact details, delivery areas and FAQ answers that show "To be added" until the owner fills them in.
+- Shopping bag (`/cart`) with quantity controls, save for later, an order summary and a bag count in the menu. It is kept in the browser until the cart API exists; there is nothing to add to it until products exist.
 - Merchants page with an application form (not connected to the backend yet) and an empty merchant directory.
 - About page with an intro, principles, how it works and a short story section.
 - Registration and login with email and password, and Google sign-in.
 - Logged-in session kept in an httpOnly cookie, with a menu that shows the user's name and Logout.
 - Smooth page transitions. The menu and footer stay put and only the page fades in.
 
-Not built yet: product API and product pages, cart, orders, admin panel, Contact page (it shows a "coming soon" page), and the newsletter backend.
+Not built yet: product API and product pages, checkout, orders, admin panel, saving of contact inquiries, and the newsletter backend.
 
 ## Tech stack
 

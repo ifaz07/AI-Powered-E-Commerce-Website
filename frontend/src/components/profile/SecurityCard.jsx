@@ -6,7 +6,7 @@ import { usePasswordForm } from '../../hooks/usePasswordForm.js'
 import FormStatus from '../FormStatus.jsx'
 import PasswordInput from '../PasswordInput.jsx'
 import PrimaryButton from '../PrimaryButton.jsx'
-import ProfileCard from './ProfileCard.jsx'
+import SectionCard from '../SectionCard.jsx'
 
 // Only email and password accounts have a password. The backend has no password-change endpoint yet,
 // so the form validates and says honestly that nothing is saved.
@@ -29,7 +29,7 @@ function SecurityCard({ user, className }) {
   const method = SIGN_IN_METHODS[user.authProvider] ?? SIGN_IN_METHODS.local
 
   return (
-    <ProfileCard eyebrow='Security' title='Sign-in & password' icon={MdOutlineLock} tinted className={className}>
+    <SectionCard eyebrow='Security' title='Sign-in & password' icon={MdOutlineLock} tinted className={className}>
       {user.authProvider === 'google' ? <p className='text-body-md text-muted'>{method.note}</p> : <PasswordForm />}
 
       <div className='flex flex-wrap items-center justify-between gap-3 pt-6 border-t border-line text-body-sm text-muted'>
@@ -43,7 +43,7 @@ function SecurityCard({ user, className }) {
           {loggingOut ? 'Logging out...' : 'Log out'}
         </button>
       </div>
-    </ProfileCard>
+    </SectionCard>
   )
 }
 
