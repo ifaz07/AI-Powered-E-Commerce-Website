@@ -10,7 +10,7 @@ function validate(form) {
   const errors = {}
 
   FIELDS.forEach(({ name }) => {
-    if (form[name].trim() && !isMeasurement(form[name])) errors[name] = 'Use inches, like 15.5.'
+    if (form[name].trim() && !isMeasurement(form[name])) errors[name] = 'Enter a number from 1 to 200, like 15.5.'
   })
 
   return errors

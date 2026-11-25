@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<title>OneCart — Admin Console</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&amp;family=Hanken+Grotesk:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#fcf8fc",
+            "inverse-surface": "#303033",
+            "on-secondary": "#ffffff",
+            "on-secondary-container": "#742814",
+            "surface-container-low": "#f6f2f7",
+            "tertiary-fixed-dim": "#a6cbe9",
+            "on-primary-fixed": "#2c1600",
+            "surface": "#fcf8fc",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "error": "#ba1a1a",
+            "inverse-primary": "#f0bd8b",
+            "on-primary-fixed-variant": "#623f18",
+            "on-error-container": "#93000a",
+            "on-primary-container": "#5b3912",
+            "inverse-on-surface": "#f3f0f4",
+            "primary-fixed-dim": "#f0bd8b",
+            "tertiary": "#3d627c",
+            "on-secondary-fixed": "#3c0800",
+            "on-tertiary-fixed-variant": "#244a63",
+            "surface-container-highest": "#e4e1e6",
+            "secondary": "#9a442d",
+            "outline": "#82756a",
+            "outline-variant": "#d4c4b7",
+            "on-error": "#ffffff",
+            "on-secondary-fixed-variant": "#7c2e19",
+            "surface-container": "#f0edf1",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed": "#c9e6ff",
+            "secondary-container": "#fc9174",
+            "primary-container": "#d4a373",
+            "surface-variant": "#e4e1e6",
+            "background": "#fcf9f5",
+            "tertiary-container": "#8cb1ce",
+            "on-tertiary-fixed": "#001e2f",
+            "secondary-fixed-dim": "#ffb4a1",
+            "surface-tint": "#7d562d",
+            "on-tertiary-container": "#1d445d",
+            "surface-container-high": "#eae7eb",
+            "secondary-fixed": "#ffdbd2",
+            "on-background": "#1b1b1e",
+            "on-surface": "#1b1b1e",
+            "error-container": "#ffdad6",
+            "on-surface-variant": "#50453b",
+            "primary-fixed": "#ffdcbd",
+            "surface-dim": "#dcd9dd",
+            "primary": "#7d562d"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          fontFamily: {
+            "headline": ["EB Garamond", "serif"],
+            "display": ["EB Garamond", "serif"],
+            "body": ["Hanken Grotesk", "sans-serif"],
+            "label": ["Hanken Grotesk", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #fcf9f5;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-[#fcf9f5] font-body text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed min-h-screen flex flex-col">
+<!-- Top Global Navigation Bar (No Left Sidebar) -->
+<header class="sticky top-0 z-50 bg-[#fcf9f5]/95 backdrop-blur-md border-b border-[#ece7df]">
+<div class="max-w-[1520px] mx-auto px-6 lg:px-10 h-18 flex items-center justify-between gap-6">
+<!-- Brand & Section Badge -->
+<div class="flex items-center gap-3 shrink-0">
+<a class="flex items-center gap-3 group" href="#">
+<img alt="OneCart Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrDMIHssXT3K4ZnwlleFAtz8zmBHI9edKwmOtUEdAz4DaxdCCVZqJBfiUeDrRwPH2pcVyJiGxD7OEdOdOl11e0R6obnjt_pdWrgpWFX2_FhVWw9EpDZK40Rcs-_EyWc6Hm3hIIXppoyvfFh4su5zs5TU2kDErBEQFo1Sxqh_mGSzJptDM-s646mHkYsyp6IHI26h70vxUtsvSKNmuDEjm-NRvKImhDdNOYCXiqzc40w"/>
+<span class="font-headline font-semibold text-2xl tracking-wide text-on-surface">OneCart</span>
+</a>
+<div class="h-4 w-px bg-[#ece7df] mx-1"></div>
+<span class="font-label text-[10px] tracking-[0.18em] uppercase px-2 py-0.5 rounded bg-[#f2ece2] text-[#7d562d] font-bold border border-[#e4dcce]">
+          Admin Console
+        </span>
+</div>
+<!-- Primary Horizontal Navigation Tabs -->
+<nav class="hidden lg:flex items-center space-x-1 font-label text-sm font-medium">
+<a class="relative px-3.5 py-2 text-[#7d562d] font-semibold flex items-center gap-1.5 transition-colors" href="#">
+<span>Overview</span>
+<span class="absolute bottom-0 left-3 right-3 h-[2px] bg-[#7d562d] rounded-full"></span>
+</a>
+<a class="px-3.5 py-2 text-on-surface-variant hover:text-on-surface transition-colors rounded-lg hover:bg-[#f3ede3]" href="#">
+          Merchants
+        </a>
+<a class="px-3.5 py-2 text-on-surface-variant hover:text-on-surface transition-colors rounded-lg hover:bg-[#f3ede3] flex items-center gap-2" href="#">
+<span>Applications</span>
+<span class="px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-secondary text-white font-mono leading-tight">9</span>
+</a>
+<a class="px-3.5 py-2 text-on-surface-variant hover:text-on-surface transition-colors rounded-lg hover:bg-[#f3ede3]" href="#">
+          Orders &amp; Dispatches
+        </a>
+<a class="px-3.5 py-2 text-on-surface-variant hover:text-on-surface transition-colors rounded-lg hover:bg-[#f3ede3]" href="#">
+          Customers
+        </a>
+<a class="px-3.5 py-2 text-on-surface-variant hover:text-on-surface transition-colors rounded-lg hover:bg-[#f3ede3]" href="#">
+          Settings
+        </a>
+</nav>
+<!-- Right Controls: Single Unified Command Search & User Profile -->
+<div class="flex items-center gap-4 shrink-0">
+<!-- Single Global Search Bar -->
+<div class="relative w-64 xl:w-72 hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full pl-9 pr-8 py-2 text-xs bg-white border border-[#ece7df] text-on-surface placeholder:text-outline rounded-lg focus:outline-none focus:border-[#7d562d] focus:ring-1 focus:ring-[#7d562d] transition-all shadow-2xs" placeholder="Search merchants, orders, NID..." type="text"/>
+<kbd class="hidden xl:inline-block absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] font-mono font-medium text-outline bg-[#f5f1ea] px-1.5 py-0.5 rounded border border-[#ece7df]">⌘K</kbd>
+</div>
+<!-- Notification Bell -->
+<button aria-label="Notifications" class="relative p-2 rounded-lg text-on-surface-variant hover:bg-[#f3ede3] hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-secondary ring-2 ring-white"></span>
+</button>
+<div class="h-5 w-px bg-[#ece7df]"></div>
+<!-- Admin Profile Chip with Dropdown Indicator -->
+<button class="flex items-center gap-2.5 p-1 pr-2 rounded-lg hover:bg-[#f3ede3] transition-colors group">
+<div class="w-8 h-8 rounded-full bg-[#7d562d] text-white flex items-center justify-center text-xs font-semibold shadow-xs">
+            OA
+          </div>
+<div class="hidden md:flex flex-col text-left leading-tight">
+<span class="text-xs font-semibold text-on-surface">Operations Admin</span>
+<span class="text-[10px] text-outline">Superuser • Dhaka HQ</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[16px] group-hover:text-on-surface transition-colors">expand_more</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Full-Width Dashboard Content -->
+<main class="flex-1 w-full max-w-[1520px] mx-auto px-6 lg:px-10 py-8 space-y-8">
+<!-- Page Header & Action Controls -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 pb-2">
+<div class="min-w-0">
+<h1 class="font-headline text-3xl lg:text-4xl text-on-surface font-normal tracking-tight">
+          Merchant &amp; Operations Overview
+        </h1>
+<p class="font-body text-sm text-on-surface-variant mt-1.5">
+          Live oversight of marketplace revenue, artisan onboarding, and active dispatches across Bangladesh.
+        </p>
+</div>
+<!-- Controls: Time Range Toggle + CTA -->
+<div class="flex flex-wrap items-center gap-3 shrink-0">
+<div class="inline-flex items-center bg-white border border-[#ece7df] p-1 rounded-lg text-xs font-label shadow-2xs">
+<button class="px-3.5 py-1.5 rounded-DEFAULT text-on-surface-variant hover:text-on-surface transition-colors">Today</button>
+<button class="px-3.5 py-1.5 rounded-DEFAULT bg-[#f2ece2] text-[#623f18] font-semibold">This Week</button>
+<button class="px-3.5 py-1.5 rounded-DEFAULT text-on-surface-variant hover:text-on-surface transition-colors">Month to Date</button>
+</div>
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#7d562d] hover:bg-[#6b4722] text-white text-xs font-label font-semibold tracking-wide transition-all shadow-xs">
+<span class="material-symbols-outlined text-[17px]">add</span>
+<span>+ Invite Merchant</span>
+</button>
+</div>
+</div>
+<!-- 5 Balanced KPI Summary Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+<!-- Card 1: Total Revenue -->
+<div class="bg-white border border-[#ece7df] rounded-xl p-5 shadow-2xs flex flex-col justify-between hover:border-[#dfd8cc] transition-colors">
+<div class="flex items-center justify-between text-outline mb-3">
+<span class="text-[11px] font-label font-semibold uppercase tracking-wider">Total Revenue</span>
+<span class="material-symbols-outlined text-[19px] text-[#7d562d]">payments</span>
+</div>
+<div>
+<div class="font-headline text-2xl lg:text-3xl text-on-surface font-medium leading-none">৳ 38,42,500</div>
+<div class="flex items-center gap-1.5 mt-2.5 text-xs">
+<span class="text-[#7d562d] font-semibold inline-flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span> +18.4%
+            </span>
+<span class="text-outline">vs last month</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Active Orders -->
+<div class="bg-white border border-[#ece7df] rounded-xl p-5 shadow-2xs flex flex-col justify-between hover:border-[#dfd8cc] transition-colors">
+<div class="flex items-center justify-between text-outline mb-3">
+<span class="text-[11px] font-label font-semibold uppercase tracking-wider">Active Orders</span>
+<span class="material-symbols-outlined text-[19px] text-[#7d562d]">local_shipping</span>
+</div>
+<div>
+<div class="font-headline text-2xl lg:text-3xl text-on-surface font-medium leading-none">142</div>
+<div class="text-xs text-on-surface-variant mt-2.5">
+            48 in Dhaka transit
+          </div>
+</div>
+</div>
+<!-- Card 3: Total Merchants -->
+<div class="bg-white border border-[#ece7df] rounded-xl p-5 shadow-2xs flex flex-col justify-between hover:border-[#dfd8cc] transition-colors">
+<div class="flex items-center justify-between text-outline mb-3">
+<span class="text-[11px] font-label font-semibold uppercase tracking-wider">Total Merchants</span>
+<span class="material-symbols-outlined text-[19px] text-[#7d562d]">storefront</span>
+</div>
+<div>
+<div class="font-headline text-2xl lg:text-3xl text-on-surface font-medium leading-none">68</div>
+<div class="text-[11px] text-on-surface-variant mt-2.5 leading-relaxed truncate">
+            52 Approved • 9 Pending • 3 Suspended
+          </div>
+</div>
+</div>
+<!-- Card 4: Total Customers -->
+<div class="bg-white border border-[#ece7df] rounded-xl p-5 shadow-2xs flex flex-col justify-between hover:border-[#dfd8cc] transition-colors">
+<div class="flex items-center justify-between text-outline mb-3">
+<span class="text-[11px] font-label font-semibold uppercase tracking-wider">Total Customers</span>
+<span class="material-symbols-outlined text-[19px] text-[#7d562d]">group</span>
+</div>
+<div>
+<div class="font-headline text-2xl lg:text-3xl text-on-surface font-medium leading-none">4,820</div>
+<div class="text-xs text-on-surface-variant mt-2.5">
+<span class="text-[#7d562d] font-semibold">94%</span> repeat retention
+          </div>
+</div>
+</div>
+<!-- Card 5: Pending Applications -->
+<div class="bg-white border border-[#ece7df] rounded-xl p-5 shadow-2xs flex flex-col justify-between hover:border-[#dfd8cc] transition-colors">
+<div class="flex items-center justify-between text-outline mb-3">
+<span class="text-[11px] font-label font-semibold uppercase tracking-wider">Pending Applications</span>
+<span class="material-symbols-outlined text-[19px] text-secondary">pending_actions</span>
+</div>
+<div>
+<div class="font-headline text-2xl lg:text-3xl text-on-surface font-medium leading-none">9</div>
+<div class="text-xs text-secondary font-medium mt-2.5">
+            4 awaiting immediate review
+          </div>
+</div>
+</div>
+</div>
+<!-- Main 2-Column Balanced Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column (~68% width): Merchant Directory Table -->
+<div class="lg:col-span-8 bg-white border border-[#ece7df] rounded-xl p-6 shadow-2xs space-y-5">
+<!-- Table Header & Dropdown Filters (No duplicate search bar!) -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h2 class="font-headline text-2xl text-on-surface font-normal">Merchant Directory</h2>
+<p class="text-xs text-on-surface-variant mt-0.5">Manage active storefronts, artisanal catalogues, and regional merchants.</p>
+</div>
+<!-- Dropdowns contextual to the directory -->
+<div class="flex items-center gap-2.5">
+<select class="px-3 py-1.5 text-xs bg-[#fcf9f5] border border-[#ece7df] rounded-lg text-on-surface focus:outline-none focus:border-[#7d562d]">
+<option>All Categories</option>
+<option>Jamdani &amp; Silk</option>
+<option>Bespoke Tailoring</option>
+<option>Leather Goods</option>
+<option>Home &amp; Craft</option>
+</select>
+<select class="px-3 py-1.5 text-xs bg-[#fcf9f5] border border-[#ece7df] rounded-lg text-on-surface focus:outline-none focus:border-[#7d562d]">
+<option>All Statuses</option>
+<option>Approved</option>
+<option>Pending</option>
+<option>Info Needed</option>
+<option>Suspended</option>
+</select>
+</div>
+</div>
+<!-- Status Filter Tabs -->
+<div class="flex items-center gap-2 border-b border-[#ece7df] pb-3 text-xs font-label overflow-x-auto">
+<button class="px-3 py-1.5 rounded-lg bg-[#7d562d] text-white font-medium shrink-0 shadow-2xs">All (68)</button>
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-[#f3ede3] transition-colors shrink-0">Approved (52)</button>
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-[#f3ede3] transition-colors shrink-0">Pending (9)</button>
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-[#f3ede3] transition-colors shrink-0">Suspended (3)</button>
+</div>
+<!-- Directory Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left text-xs border-collapse">
+<thead>
+<tr class="text-[11px] font-label font-semibold uppercase tracking-wider text-outline border-b border-[#ece7df]">
+<th class="py-3 pr-4">Merchant Name &amp; Provenance</th>
+<th class="py-3 px-3">Category</th>
+<th class="py-3 px-3 text-center">Products</th>
+<th class="py-3 px-3 text-right">30-Day Revenue</th>
+<th class="py-3 px-3 text-center">Storefront</th>
+<th class="py-3 px-3">Status</th>
+<th class="py-3 pl-3 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#ece7df]/70">
+<!-- Row 1: Tangail Heritage Loom -->
+<tr class="hover:bg-[#fcfaf7] transition-colors">
+<td class="py-3.5 pr-4">
+<div class="font-medium text-on-surface text-[13px]">Tangail Heritage Loom</div>
+<div class="text-[11px] text-outline">Delduar, Tangail</div>
+</td>
+<td class="py-3.5 px-3 text-on-surface-variant">Jamdani &amp; Silk</td>
+<td class="py-3.5 px-3 text-center font-mono text-on-surface">24</td>
+<td class="py-3.5 px-3 text-right font-mono font-medium text-on-surface">৳ 8,40,000</td>
+<td class="py-3.5 px-3 text-center">
+<button aria-label="Storefront live" class="w-8 h-4.5 bg-[#7d562d] rounded-full relative inline-flex items-center px-0.5 cursor-pointer">
+<span class="w-3.5 h-3.5 bg-white rounded-full translate-x-3.5 transition-transform"></span>
+</button>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-DEFAULT bg-[#f2ece2] text-[#623f18] text-[11px] font-medium">Approved</span>
+</td>
+<td class="py-3.5 pl-3 text-right">
+<button class="p-1.5 rounded-lg hover:bg-[#f3ede3] text-on-surface-variant hover:text-on-surface transition-colors" title="View Merchant">
+<span class="material-symbols-outlined text-[17px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Banani Tailoring Studio -->
+<tr class="hover:bg-[#fcfaf7] transition-colors">
+<td class="py-3.5 pr-4">
+<div class="font-medium text-on-surface text-[13px]">Banani Tailoring Studio</div>
+<div class="text-[11px] text-outline">Banani Road 11, Dhaka</div>
+</td>
+<td class="py-3.5 px-3 text-on-surface-variant">Bespoke Tailoring</td>
+<td class="py-3.5 px-3 text-center font-mono text-on-surface">38</td>
+<td class="py-3.5 px-3 text-right font-mono font-medium text-on-surface">৳ 12,10,000</td>
+<td class="py-3.5 px-3 text-center">
+<button aria-label="Storefront live" class="w-8 h-4.5 bg-[#7d562d] rounded-full relative inline-flex items-center px-0.5 cursor-pointer">
+<span class="w-3.5 h-3.5 bg-white rounded-full translate-x-3.5 transition-transform"></span>
+</button>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-DEFAULT bg-[#f2ece2] text-[#623f18] text-[11px] font-medium">Approved</span>
+</td>
+<td class="py-3.5 pl-3 text-right">
+<button class="p-1.5 rounded-lg hover:bg-[#f3ede3] text-on-surface-variant hover:text-on-surface transition-colors" title="View Merchant">
+<span class="material-symbols-outlined text-[17px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Hazaribagh Leather Co. -->
+<tr class="hover:bg-[#fcfaf7] transition-colors">
+<td class="py-3.5 pr-4">
+<div class="font-medium text-on-surface text-[13px]">Hazaribagh Leather Co.</div>
+<div class="text-[11px] text-outline">Hazaribagh, Dhaka</div>
+</td>
+<td class="py-3.5 px-3 text-on-surface-variant">Leather Goods</td>
+<td class="py-3.5 px-3 text-center font-mono text-on-surface">16</td>
+<td class="py-3.5 px-3 text-right font-mono font-medium text-on-surface">৳ 5,50,000</td>
+<td class="py-3.5 px-3 text-center">
+<button aria-label="Storefront live" class="w-8 h-4.5 bg-[#7d562d] rounded-full relative inline-flex items-center px-0.5 cursor-pointer">
+<span class="w-3.5 h-3.5 bg-white rounded-full translate-x-3.5 transition-transform"></span>
+</button>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-DEFAULT bg-[#f2ece2] text-[#623f18] text-[11px] font-medium">Approved</span>
+</td>
+<td class="py-3.5 pl-3 text-right">
+<button class="p-1.5 rounded-lg hover:bg-[#f3ede3] text-on-surface-variant hover:text-on-surface transition-colors" title="View Merchant">
+<span class="material-symbols-outlined text-[17px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: Sonargaon Zari Works (Active Review Selection) -->
+<tr class="bg-[#fbf4eb] hover:bg-[#f7ece0] transition-colors border-l-2 border-l-[#7d562d]">
+<td class="py-3.5 pr-4 pl-2">
+<div class="font-medium text-on-surface text-[13px] flex items-center gap-1.5">
+<span>Sonargaon Zari Works</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<div class="text-[11px] text-outline">Sonargaon, Narayanganj</div>
+</td>
+<td class="py-3.5 px-3 text-on-surface-variant">Jamdani &amp; Silk</td>
+<td class="py-3.5 px-3 text-center font-mono text-outline">8</td>
+<td class="py-3.5 px-3 text-right font-mono text-outline">৳ 0</td>
+<td class="py-3.5 px-3 text-center">
+<button aria-label="Storefront inactive" class="w-8 h-4.5 bg-[#e4e1e6] rounded-full relative inline-flex items-center px-0.5 opacity-60 cursor-not-allowed">
+<span class="w-3.5 h-3.5 bg-white rounded-full transition-transform"></span>
+</button>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed-variant text-[11px] font-medium">Pending</span>
+</td>
+<td class="py-3.5 pl-3 text-right">
+<span class="px-2 py-0.5 rounded-md bg-[#7d562d] text-white text-[10px] font-medium tracking-wide shadow-2xs">Reviewing</span>
+</td>
+</tr>
+<!-- Row 5: Dhanmondi Muslin House -->
+<tr class="hover:bg-[#fcfaf7] transition-colors">
+<td class="py-3.5 pr-4">
+<div class="font-medium text-on-surface text-[13px]">Dhanmondi Muslin House</div>
+<div class="text-[11px] text-outline">Dhanmondi 27, Dhaka</div>
+</td>
+<td class="py-3.5 px-3 text-on-surface-variant">Jamdani &amp; Silk</td>
+<td class="py-3.5 px-3 text-center font-mono text-outline">14</td>
+<td class="py-3.5 px-3 text-right font-mono text-outline">৳ 0</td>
+<td class="py-3.5 px-3 text-center">
+<button aria-label="Storefront inactive" class="w-8 h-4.5 bg-[#e4e1e6] rounded-full relative inline-flex items-center px-0.5 opacity-60 cursor-not-allowed">
+<span class="w-3.5 h-3.5 bg-white rounded-full transition-transform"></span>
+</button>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed-dim text-on-secondary-fixed text-[11px] font-medium">Info Needed</span>
+</td>
+<td class="py-3.5 pl-3 text-right">
+<button class="p-1.5 rounded-lg hover:bg-[#f3ede3] text-on-surface-variant hover:text-on-surface transition-colors" title="View Merchant">
+<span class="material-symbols-outlined text-[17px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 6: Sylhet Cane & Wood -->
+<tr class="hover:bg-[#fcfaf7] transition-colors opacity-80">
+<td class="py-3.5 pr-4">
+<div class="font-medium text-on-surface text-[13px]">Sylhet Cane &amp; Wood</div>
+<div class="text-[11px] text-outline">Sreemangal, Sylhet</div>
+</td>
+<td class="py-3.5 px-3 text-on-surface-variant">Home &amp; Craft</td>
+<td class="py-3.5 px-3 text-center font-mono text-outline">0</td>
+<td class="py-3.5 px-3 text-right font-mono text-outline">৳ 0</td>
+<td class="py-3.5 px-3 text-center">
+<button aria-label="Storefront disabled" class="w-8 h-4.5 bg-[#e4e1e6] rounded-full relative inline-flex items-center px-0.5 opacity-60 cursor-not-allowed">
+<span class="w-3.5 h-3.5 bg-white rounded-full transition-transform"></span>
+</button>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-DEFAULT bg-error-container text-on-error-container text-[11px] font-medium">Suspended</span>
+</td>
+<td class="py-3.5 pl-3 text-right">
+<button class="p-1.5 rounded-lg hover:bg-[#f3ede3] text-on-surface-variant hover:text-on-surface transition-colors" title="View Merchant">
+<span class="material-symbols-outlined text-[17px]">visibility</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination -->
+<div class="flex items-center justify-between pt-3 border-t border-[#ece7df] text-xs text-on-surface-variant">
+<span>Showing <strong class="text-on-surface">1–6</strong> of 68 merchants</span>
+<div class="flex items-center gap-1 font-label">
+<button class="p-1.5 rounded-lg border border-[#ece7df] hover:bg-[#f3ede3] disabled:opacity-35 transition-colors" disabled="">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+</button>
+<button class="px-2.5 py-1 rounded-lg bg-[#7d562d] text-white font-medium shadow-2xs">1</button>
+<button class="px-2.5 py-1 rounded-lg hover:bg-[#f3ede3] text-on-surface transition-colors">2</button>
+<button class="px-2.5 py-1 rounded-lg hover:bg-[#f3ede3] text-on-surface transition-colors">3</button>
+<button class="p-1.5 rounded-lg border border-[#ece7df] hover:bg-[#f3ede3] text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Column (~32% width): Pending Application Inspector Panel -->
+<div class="lg:col-span-4 bg-white border border-[#ece7df] rounded-xl p-6 shadow-2xs space-y-5">
+<!-- Application Header -->
+<div class="border-b border-[#ece7df] pb-4">
+<span class="inline-block px-2.5 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed text-[10px] font-label font-bold uppercase tracking-wider mb-2">
+            Pending Application
+          </span>
+<h3 class="font-headline text-2xl text-on-surface font-normal">Sonargaon Zari Works</h3>
+<p class="text-xs text-outline mt-1 font-mono">Submitted Oct 24, 2024 • ID #APP-094</p>
+</div>
+<!-- Merchant & Contact Dossier -->
+<div class="p-4 rounded-lg bg-[#fcf9f5] border border-[#ece7df] space-y-2.5 text-xs">
+<div class="flex justify-between items-center gap-2">
+<span class="text-outline">Owner / Representative</span>
+<span class="font-medium text-on-surface text-right">Tariqul Islam</span>
+</div>
+<div class="flex justify-between items-center gap-2">
+<span class="text-outline">Direct Phone</span>
+<span class="font-mono text-on-surface text-right">+880 1711-094821</span>
+</div>
+<div class="flex justify-between items-center gap-2">
+<span class="text-outline">Email Address</span>
+<span class="text-on-surface text-right truncate">tariqul@sonargaonzari.bd</span>
+</div>
+<div class="flex justify-between items-center gap-2 pt-2 border-t border-[#ece7df]">
+<span class="text-outline">Artisanal Hub</span>
+<span class="text-on-surface text-right font-medium">Puran Bazar, Sonargaon</span>
+</div>
+</div>
+<!-- Document Verification Checklist -->
+<div class="space-y-2.5">
+<span class="text-[11px] font-label font-semibold uppercase tracking-wider text-outline block">
+            Document Verification Checklist
+          </span>
+<div class="space-y-2 text-xs">
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-[#fcf9f5] border border-[#ece7df]">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[17px] text-[#7d562d]">check_circle</span>
+<span class="text-on-surface font-medium">National Smart NID</span>
+</div>
+<span class="font-mono text-[10px] text-[#7d562d] font-bold bg-[#f2ece2] px-2 py-0.5 rounded border border-[#e4dcce]">VERIFIED</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-[#fcf9f5] border border-[#ece7df]">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[17px] text-[#7d562d]">check_circle</span>
+<span class="text-on-surface font-medium">Trade License</span>
+</div>
+<span class="font-mono text-[10px] text-[#7d562d] font-bold bg-[#f2ece2] px-2 py-0.5 rounded border border-[#e4dcce]">VERIFIED</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-[#fcf9f5] border border-[#ece7df]">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[17px] text-[#7d562d]">check_circle</span>
+<span class="text-on-surface font-medium">Bank Details</span>
+</div>
+<span class="font-mono text-[10px] text-[#7d562d] font-bold bg-[#f2ece2] px-2 py-0.5 rounded border border-[#e4dcce]">MATCHED</span>
+</div>
+</div>
+</div>
+<!-- Internal Review Note -->
+<div class="space-y-1.5">
+<label class="text-[11px] font-label font-semibold uppercase tracking-wider text-outline block" for="review-notes">
+            Internal Review Note
+          </label>
+<textarea class="w-full p-3 text-xs bg-[#fcf9f5] border border-[#ece7df] rounded-lg text-on-surface placeholder:text-outline/70 focus:outline-none focus:border-[#7d562d] resize-none" id="review-notes" placeholder="Verified workshop premises via Narayanganj field coordinator. Ready for tier-1 showcase..." rows="3"></textarea>
+</div>
+<!-- Action Decision Buttons -->
+<div class="space-y-2.5 pt-1">
+<button class="w-full py-2.5 px-4 rounded-lg bg-[#7d562d] hover:bg-[#6b4722] text-white text-xs font-label font-semibold tracking-wide transition-all shadow-xs flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[17px]">verified</span>
+<span>Approve &amp; Publish Storefront</span>
+</button>
+<div class="grid grid-cols-2 gap-2.5">
+<button class="w-full py-2 px-3 rounded-lg border border-[#ece7df] bg-white hover:bg-[#f3ede3] text-on-surface text-xs font-label font-medium transition-colors">
+              Request Info
+            </button>
+<button class="w-full py-2 px-3 rounded-lg border border-error/30 bg-white hover:bg-error-container text-error text-xs font-label font-medium transition-colors">
+              Reject
+            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Recent Orders & Transactions Strip (4-Column Grid) -->
+<div class="bg-white border border-[#ece7df] rounded-xl p-6 shadow-2xs space-y-5">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div>
+<h2 class="font-headline text-2xl text-on-surface font-normal">Recent Orders &amp; Transactions</h2>
+<p class="text-xs text-on-surface-variant mt-0.5">Live purchases and settlement pipelines across active storefronts.</p>
+</div>
+<a class="inline-flex items-center gap-1 text-xs font-label font-semibold text-[#7d562d] hover:underline" href="#">
+<span>View all orders</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Order 1 -->
+<div class="p-4 rounded-lg bg-[#fcf9f5] border border-[#ece7df] flex flex-col justify-between space-y-3 hover:border-[#dfd8cc] transition-colors">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-mono text-xs font-semibold text-[#7d562d]">#ORD-9041</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-[#f2ece2] text-[#623f18] text-[10px] font-medium">In Transit</span>
+</div>
+<div class="font-headline text-base text-on-surface font-medium leading-snug">Pure Jamdani Silk Panjabi</div>
+<div class="text-xs text-outline mt-1">Ifaz Alamgir • Gulshan 2</div>
+</div>
+<div class="pt-2.5 border-t border-[#ece7df] flex items-center justify-between text-xs">
+<span class="font-mono font-semibold text-on-surface">৳ 8,200</span>
+<span class="px-2 py-0.5 rounded bg-white border border-[#ece7df] text-[10px] font-label font-medium text-outline">bKash</span>
+</div>
+</div>
+<!-- Order 2 -->
+<div class="p-4 rounded-lg bg-[#fcf9f5] border border-[#ece7df] flex flex-col justify-between space-y-3 hover:border-[#dfd8cc] transition-colors">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-mono text-xs font-semibold text-[#7d562d]">#ORD-9040</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-[#eae7eb] text-on-surface text-[10px] font-medium">Delivered</span>
+</div>
+<div class="font-headline text-base text-on-surface font-medium leading-snug">Indigo Selvedge Jacket</div>
+<div class="text-xs text-outline mt-1">Dr. K. Rahman • Banani</div>
+</div>
+<div class="pt-2.5 border-t border-[#ece7df] flex items-center justify-between text-xs">
+<span class="font-mono font-semibold text-on-surface">৳ 6,850</span>
+<span class="px-2 py-0.5 rounded bg-white border border-[#ece7df] text-[10px] font-label font-medium text-outline">Card</span>
+</div>
+</div>
+<!-- Order 3 -->
+<div class="p-4 rounded-lg bg-[#fcf9f5] border border-[#ece7df] flex flex-col justify-between space-y-3 hover:border-[#dfd8cc] transition-colors">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-mono text-xs font-semibold text-[#7d562d]">#ORD-9039</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed text-[10px] font-medium">Processing</span>
+</div>
+<div class="font-headline text-base text-on-surface font-medium leading-snug">Leather Crossbody Bag</div>
+<div class="text-xs text-outline mt-1">Samira Haque • Baridhara</div>
+</div>
+<div class="pt-2.5 border-t border-[#ece7df] flex items-center justify-between text-xs">
+<span class="font-mono font-semibold text-on-surface">৳ 6,400</span>
+<span class="px-2 py-0.5 rounded bg-white border border-[#ece7df] text-[10px] font-label font-medium text-outline">COD</span>
+</div>
+</div>
+<!-- Order 4 -->
+<div class="p-4 rounded-lg bg-[#fcf9f5] border border-[#ece7df] flex flex-col justify-between space-y-3 hover:border-[#dfd8cc] transition-colors">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-mono text-xs font-semibold text-[#7d562d]">#ORD-9038</span>
+<span class="px-2 py-0.5 rounded-DEFAULT bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-medium">Confirmed</span>
+</div>
+<div class="font-headline text-base text-on-surface font-medium leading-snug">Bespoke Silk Sherwani</div>
+<div class="text-xs text-outline mt-1">Z. Mahmud • Uttara</div>
+</div>
+<div class="pt-2.5 border-t border-[#ece7df] flex items-center justify-between text-xs">
+<span class="font-mono font-semibold text-on-surface">৳ 24,500</span>
+<span class="px-2 py-0.5 rounded bg-white border border-[#ece7df] text-[10px] font-label font-medium text-outline">Nagad</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Editorial Dashboard Minimal Footer -->
+<footer class="mt-auto border-t border-[#ece7df] py-4 bg-white/60">
+<div class="max-w-[1520px] mx-auto px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-outline">
+<div class="flex items-center gap-2">
+<span class="font-headline text-sm font-semibold text-on-surface">OneCart Operations Network</span>
+<span>•</span>
+<span>Dhaka, Bangladesh</span>
+</div>
+<div>
+<span>Platform Version 2.4.0 • Encrypted Operations Channel</span>
+</div>
+</div>
+</footer>
+</body></html>

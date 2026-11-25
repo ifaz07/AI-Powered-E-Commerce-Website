@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+/* Design tokens for the admin console ("Editorial Noir", the warm dashboard version).
+   Colors, fonts and corner sizes live here so every screen matches. Change a value and the console follows. */
+@theme {
+  --color-page: #fcf9f5;
+  --color-surface: #ffffff;
+  --color-inset: #fcf9f5;
+  --color-line: #ece7df;
+  --color-line-strong: #dfd8cc;
+  --color-hover: #f3ede3;
+  --color-ink: #1b1b1e;
+  --color-muted: #50453b;
+  --color-outline: #82756a;
+  --color-accent: #7d562d;
+  --color-accent-strong: #6b4722;
+  --color-accent-soft: #f2ece2;
+  --color-accent-ink: #623f18;
+  --color-accent-line: #e4dcce;
+  --color-terracotta: #9a442d;
+  --color-terracotta-soft: #ffdbd2;
+  --color-terracotta-soft-strong: #ffb4a1;
+  --color-terracotta-ink: #3c0800;
+  --color-danger: #ba1a1a;
+  --color-danger-soft: #ffdad6;
+  --color-danger-ink: #93000a;
+  --color-info-soft: #c9e6ff;
+  --color-info-ink: #001e2f;
+  --color-neutral-soft: #eae7eb;
+  --color-switch-off: #e4e1e6;
+
+  --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+}
+
+body {
+  background-color: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-enter {
+  animation: fade-in 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.loader-delayed {
+  animation: fade-in 300ms ease-out 400ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .loader-delayed {
+    animation: none;
+  }
+}
