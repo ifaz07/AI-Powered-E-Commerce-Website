@@ -16,7 +16,9 @@ Working now:
 - Logged-in session kept in an httpOnly cookie, with a menu that shows the user's name and Logout.
 - Smooth page transitions. The menu and footer stay put and only the page fades in.
 
-Not built yet: product API and product pages, checkout, orders, admin panel, saving of contact inquiries, and the newsletter backend.
+Admin console (`admin/`): sign-in and the Overview page (headline numbers, merchant directory, application review panel, recent orders). It shows real zeros and empty states until the merchant, order and customer APIs exist. Run it with `npm run dev` inside `admin/` (port 5174).
+
+Not built yet: product API and product pages, checkout, orders, the other admin pages, an admin role on users, saving of contact inquiries, and the newsletter backend.
 
 ## Tech stack
 
@@ -29,7 +31,7 @@ Not built yet: product API and product pages, checkout, orders, admin panel, sav
 ```
 backend/    Express API: config/, controller/, model/, routes/, middleware/
 frontend/   React app (see below)
-admin/      Reserved for the admin panel (empty for now)
+admin/      Admin console (React + Vite + Tailwind), separate from the storefront
 ```
 
 Frontend `src/` folders:
